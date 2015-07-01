@@ -90,7 +90,7 @@ describe("About Applying What We Have Learnt", function() {
         }
     }
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   it("should count the ingredient occurrence (functional)", function () {
@@ -98,7 +98,18 @@ describe("About Applying What We Have Learnt", function() {
 
     /* chain() together map(), flatten() and reduce() */
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    ingredientCount = _.chain(products)
+                        .map(function(x) {
+                          return x.ingredients;
+                        })
+                        .flatten()
+                        .reduce(function(accumulator, y){
+                          accumulator[y] = (accumulator[y] || 0) + 1;
+                          return accumulator;
+                        }, {})
+                        .value();
+
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   /*********************************************************************************/
